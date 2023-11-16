@@ -32,8 +32,11 @@ int del_end_white(char line[], int length) {
   // Si no te dan bien el tamaño. Busca el final
   int fin;
   int puntero = 0;
+
+  // Esto no sirve explicado en 1.19. Te tienen que pasar el length bien.
   for (fin = length; fin >= 0 && line[fin] != '\0'; --fin)
     ;
+
   if (line[fin] != '\0') {
     line[0] = '\0';
     return 0;
