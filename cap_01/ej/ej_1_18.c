@@ -1,5 +1,3 @@
-// COSMO: TODO: MEJORAR CÓDIGO
-// Esta mal la lógica de eliminar lineas en blanco
 /*Ejercicio 1-18. Escriba un programa que elimine los blancos y los tabuladores
  * que estén al final de cada línea de entrada, y que borre completamente las
  * líneas en blanco.*/
@@ -10,7 +8,7 @@
 #define WHITE (-1)
 
 int del_end_white(char line[], int length);
-void del_line_white(char line[], int length);
+int del_line_white(char line[], int length);
 int get_line(char s[], int max_line);
 
 int main() {
@@ -18,53 +16,60 @@ int main() {
   char buffer[MAX_LINE];
   int len_line;
 
-  while ((len_line = get_line(buffer, MAX_LINE)) != EOF) {
-    // del_line_white(buffer, len_line);
-    len_line =
-        del_end_white(buffer, len_line); // si no tiene nada mas que lineas en
-                                         // blanco va a borrar todo.
-    if (len_line != WHITE)
-      printf("%s", buffer);
+  while ((len_line = get_line(buffer, MAX_LINE)) > 0) {
+
+    len_line = del_end_white(buffer, len_line);
+    // printf("%d ", len_line);
+    len_line = del_line_white(buffer, len_line);
+    // printf("%d\n", len_line);
+
+    printf("%s", buffer);
   }
   return 0;
 }
 
 int del_end_white(char line[], int length) {
   // Si no te dan bien el tamaño. Busca el final
-  int j;
   int fin;
-  for (j = length; j >= 0 && line[j] != '\0'; --j)
+  int puntero = 0;
+  for (fin = length; fin >= 0 && line[fin] != '\0'; --fin)
     ;
-  if (line[j] == '\0')
-    fin = j;
+  if (line[fin] != '\0') {
+    line[0] = '\0';
+    return 0;
+  }
+
+  if (line[fin - 1] == '\n')
+    puntero = fin - 2;
   else
-    return WHITE;
+    puntero = fin - 1;
 
-  if (line[j - 1] == '\n')
-    --fin;
-
-  int i;
-  for (i = fin - 1; i >= 0; --i) {
-    if (line[i] == '\t' || line[i] == ' ')
-      line[i] = '\0';
+  for (; puntero >= 0; --puntero) {
+    if (line[puntero] == '\t' || line[puntero] == ' ')
+      line[puntero] = '\0';
     else
       break;
   }
-  i++;
-  line[i] = '\n';
-  i++;
-  line[i] = '\0';
+  puntero++;
+  line[puntero] = '\n';
+  puntero++;
+  line[puntero] = '\0';
 
-  return i + 1;
+  return puntero + 1;
 }
-
-/*
-void del_line_white(char line[], int length) {
-  int contenido = 0;
-  for (int i = 0; i < length; i++)
+int del_line_white(char line[], int length) {
+  int i;
+  for (i = 0; i < length && line[i] != '\0' &&
+              (line[i] == ' ' || line[i] == '\t' || line[i] == '\n');
+       i++)
     ;
+  if ((line[i] == '\0' && i == 0) || (line[i] == '\0' && line[i - 1] == '\n')) {
+    line[0] = '\0';
+    length = 0;
+  }
+
+  return length;
 }
-*/
 
 int get_line(char s[], int max_line) {
   int c;
@@ -77,10 +82,6 @@ int get_line(char s[], int max_line) {
     s[i] = '\n';
     i++;
   }
-
-  if (c == EOF)
-    i = c;
-
   s[i] = '\0';
 
   return i;
