@@ -1,0 +1,2 @@
+/*Ejercicio 1-21. Escriba un programa entab que reemplace cadenas de blancos por
+ * el mínimo número de tabuladores y blancos para obtener el mismo espaciado.

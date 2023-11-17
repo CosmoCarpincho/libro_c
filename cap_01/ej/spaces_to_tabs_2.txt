@@ -11,84 +11,54 @@
 
 #include <stdio.h>
 
-#define TAM_BUFF 10
+#define TAM_BUFF 5000 // Con buffer chicos rompe
 #define TAB_SPACES 2
 
 int spaces_to_tabs(char s[], int length_buff);
 
 int spaces_to_tabs(char s[], int length_buff) {
 
-  char buff[length_buff];
-  int cont = 0;
-  int k = 0;
-  for (int i = 0; i < length_buff - 1 && s[i] != '\0'; ++i) {
-    if (s[i] == ' ') {
-      for (int j = i; j < TAB_SPACES + i; ++j) {
-        if (s[j] == ' ')
-          cont++;
-      }
-    }
+	char buff[length_buff];
+	int cont = 0;
+	int k = 0;
+	for (int i = 0; i < length_buff - 1 && s[i] != '\0'; ++i) {
+			if (s[i] == ' ') {
+				for (int j = i; j < TAB_SPACES + i; ++j) {
+					if (s[j] == ' ')
+		 			 cont++;
+	 		 }
+			}
 
-    if (cont == TAB_SPACES) {
-      i = i + TAB_SPACES - 1;
-      buff[k++] = '\t';
-    } else
-      buff[k++] = s[i];
+			if (cont == TAB_SPACES) {
+				i = i + TAB_SPACES - 1;
+			buff[k++] = '\t';
+			} else
+			buff[k++] = s[i];
 
-    cont = 0;
-  }
-  buff[k] = '\0';
+		cont = 0;
+	}
+	buff[k] = '\0';
 
-  int m;
-  for (m = 0; m < length_buff - 1 && buff[m] != '\0'; ++m)
-    s[m] = buff[m];
+	int m;
+	for (m = 0; buff[m] < length_buff - 1 && buff[m] != '\0'; ++m)
+	 	 s[m] = buff[m];
 
-  s[m] = '\0';
+	s[m] = '\0';
 
-  return m;
+	return m;
 }
 int main() {
 
-  int c;
-  char buff[TAM_BUFF];
-  int k;
-  int i, aux;
-  int count_white_border = 0;
-  i = aux = 0;
-  do {
-    k = 0;
+	int c;
+	char buff[TAM_BUFF];
 
-    for (int m = 0; m < count_white_border; ++m)
-      buff[k++] = ' ';
+	int i;
+	for (i = 0; (c = getchar()) != EOF && i < (TAM_BUFF - 1); ++i) {
+	 	 buff[i] = c;
+		}
+	buff[i] = '\0';
+	spaces_to_tabs(buff, TAM_BUFF);
+	printf("%s", buff);
 
-    aux = i;
-    for (; i < (TAM_BUFF - 1 + aux) && (c = getchar()) != EOF; ++i) {
-      buff[k++] = c;
-    }
-    buff[k] = '\0';
-
-    /*
-    // Por si en el borde hay espacios que no llegan a TAB_SPACES
-    count_white_border = 0;
-    int i2;
-    for (i2 = 0; buff[i2] != '\0'; ++i2)
-      ;
-    if (buff[i2 - 1] == ' ' && c != EOF) {
-      for (int i3 = i2 - 1; i3 >= i2 - TAB_SPACES; --i3) {
-        if (buff[i3] == ' ') {
-          count_white_border++;
-        }
-      }
-      int espacios_de_mas = count_white_border % TAB_SPACES;
-      buff[k - espacios_de_mas] = '\0';
-    }
-
-    spaces_to_tabs(buff, TAM_BUFF);
-
-    */
-    printf("%s", buff);
-
-  } while (c != EOF);
-
-  return 0;
+	return 0;
 }

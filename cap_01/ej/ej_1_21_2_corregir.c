@@ -1,3 +1,4 @@
+// Cosmo: LISTO esta funcionando pero quedo muuuy feo. XD
 /*Ejercicio 1-21. Escriba un programa entab que reemplace cadenas de blancos por
  * el mínimo número de tabuladores y blancos para obtener el mismo espaciado.
  * Considere los paros de tabulación de igual manera que para detab. Cuando un
@@ -54,26 +55,24 @@ int main() {
   int k;
   int i, aux;
   int count_white_border = 0;
-  i = aux = 0;
+  char ultimo_caracter;
+  i = 0;
+  k = 0;
   do {
-    k = 0;
-
-    for (int m = 0; m < count_white_border; ++m)
-      buff[k++] = ' ';
-
-    aux = i;
-    for (; i < (TAM_BUFF - 1 + aux) && (c = getchar()) != EOF; ++i) {
+    for (i = 0; i < TAM_BUFF - 1 - count_white_border && (c = getchar()) != EOF;
+         ++i) {
       buff[k++] = c;
     }
+    count_white_border = 0;
+    // ultimo_caracter = c;
     buff[k] = '\0';
 
-    /*
-    //CORREGIR. SI QUIERO TENER UN BUFFER DINAMICO. DIGAMOS QUE PUEDA SER DE DISTINTOS TAMAÑOS
-    // Y NO ROMPA EL PROGRAMA HAY QUE ATACAR LOS BORDES.
-    // COMO PROCEDER CUANDO SE CORTA LA SECUENCIA DE ESPACIOS EN UN BORDE
-    // 
-    // Por si en el borde hay espacios que no llegan a TAB_SPACES
-    count_white_border = 0;
+    // CORREGIR. SI QUIERO TENER UN BUFFER DINAMICO. DIGAMOS QUE PUEDA SER DE
+    // DISTINTOS TAMAÑOS
+    //  Y NO ROMPA EL PROGRAMA HAY QUE ATACAR LOS BORDES.
+    //  COMO PROCEDER CUANDO SE CORTA LA SECUENCIA DE ESPACIOS EN UN BORDE
+    //
+    //  Por si en el borde hay espacios que no llegan a TAB_SPACES
     int i2;
     for (i2 = 0; buff[i2] != '\0'; ++i2)
       ;
@@ -89,10 +88,28 @@ int main() {
 
     spaces_to_tabs(buff, TAM_BUFF);
 
-    */
+    // for(int i = 0; i < TAM_BUFF && buff[i] != '\0'; i++)
+    //   putchar(buff[i]);
+
     printf("%s", buff);
+
+    k = 0;
+    for (int m = 0; m < count_white_border; ++m) {
+      buff[k++] = ' ';
+    }
+
+    // buff[k++] = ultimo_caracter;
+    // i = 1;
 
   } while (c != EOF);
 
   return 0;
 }
+
+// test: 123  45  678
+// test2:*Ejercicio 1-21. Escriba un programa entab que reemplace cadenas de
+// blancos por
+/* test 3
+/*Ejercicio 1-21. Escriba un programa entab que reemplace cadenas de blancos por
+ * el mínimo número de tabuladores y blancos para obtener el mismo espaciado.
+*/

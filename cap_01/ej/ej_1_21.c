@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 
-#define TAM_BUFF 5000
+#define TAM_BUFF 5000 // Con buffer chicos rompe
 #define TAB_SPACES 2
 
 int spaces_to_tabs(char s[], int length_buff);
