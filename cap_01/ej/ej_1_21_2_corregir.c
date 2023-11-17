@@ -68,6 +68,10 @@ int main() {
     buff[k] = '\0';
 
     /*
+    //CORREGIR. SI QUIERO TENER UN BUFFER DINAMICO. DIGAMOS QUE PUEDA SER DE DISTINTOS TAMAÑOS
+    // Y NO ROMPA EL PROGRAMA HAY QUE ATACAR LOS BORDES.
+    // COMO PROCEDER CUANDO SE CORTA LA SECUENCIA DE ESPACIOS EN UN BORDE
+    // 
     // Por si en el borde hay espacios que no llegan a TAB_SPACES
     count_white_border = 0;
     int i2;
