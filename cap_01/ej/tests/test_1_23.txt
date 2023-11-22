@@ -1,0 +1,10 @@
+// Borrar
+No borrar
+/* borrar */
+
+// borrar
+/*
+borrar
+*/
+
+No borrar
