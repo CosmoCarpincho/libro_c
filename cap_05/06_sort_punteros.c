@@ -77,7 +77,7 @@ void qsort(char *v[], int left, int right) {
 }
 
 // swap: intercambia v[i] y v[j]
-void swap(char *v[], int i, int j) {
+void swap_2(char *v[], int i, int j) {
   char *temp;
 
   temp = v[i];
